@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- views for the custom toolbar -->
+    <item name="appbar_layout" type="id" />
+    <item name="toolbar" type="id" />
+
+    <!--
+         MainScreen views
+     -->
+    <item name="main_content_searchview" type="id" />
+    <item name="main_content_txt_message" type="id" />
+    <item name="main_content_linlay_adv_expanded" type="id" />
+    <item name="main_content_adv_left_icon" type="id" />
+    <item name="main_content_adv_right_icon" type="id" />
+    <item name="main_content_adv_spinner_results" type="id" />
+    <item name="main_content_adv_spinner_order" type="id" />
+    <item name="main_content_adv_edtxt_title" type="id" />
+    <item name="main_content_adv_edtxt_author" type="id" />
+    <item name="main_content_adv_edtxt_publisher" type="id" />
+
+    <!--
+         ResultsScreen views
+     -->
+    <item name="results_content_recycler" type="id" />
+    <item name="results_content_message_txt" type="id" />
+    <item name="results_content_progressbar" type="id" />
+    <!-- list item views -->
+    <item name="list_item_img_cover" type="id" />
+    <item name="list_item_txt_title" type="id" />
+    <item name="list_item_txt_author" type="id" />
+    <item name="list_item_txt_publisher" type="id" />
+    <item name="list_item_img_internet" type="id" />
+
+</resources>

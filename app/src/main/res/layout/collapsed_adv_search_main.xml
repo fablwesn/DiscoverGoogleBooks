@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+
+        advanced search view visible in collapsed state. Also on top of the expanded state
+    -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:onClick="clickAdvancedSearchToggle"
+    android:orientation="horizontal"
+    android:padding="@dimen/large_space_default">
+
+    <!-- left indicator -->
+    <ImageView
+        android:id="@id/main_content_adv_left_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:src="@drawable/ic_expand_more_accent_24dp" />
+
+    <!-- left line -->
+    <View
+        android:layout_width="0dp"
+        android:layout_height="@dimen/tiny_space_default"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="@dimen/small_space_default"
+        android:layout_weight="1"
+        android:background="@color/colorAccent" />
+
+    <!-- label -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/small_space_default"
+        android:gravity="center"
+        android:text="@string/title_adv_search_view" />
+
+    <!-- right line -->
+    <View
+        android:layout_width="0dp"
+        android:layout_height="@dimen/tiny_space_default"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="@dimen/small_space_default"
+        android:layout_weight="1"
+        android:background="@color/colorAccent" />
+
+    <!-- right indicator -->
+    <ImageView
+        android:id="@id/main_content_adv_right_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:src="@drawable/ic_expand_more_accent_24dp" />
+</LinearLayout>

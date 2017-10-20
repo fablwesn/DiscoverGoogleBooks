@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+
+        advanced search view visible in expanded state. Also includes the collapsed layout on top
+    -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/main_content_linlay_adv_expanded"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/large_space_default"
+    android:visibility="gone">
+
+    <!-- 2 Spinner -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- spinner to select quantity of results -->
+        <Spinner
+            android:id="@id/main_content_adv_spinner_results"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/large_space_default"
+            android:layout_weight="1"
+            android:background="@drawable/drawable_border_accent"
+            android:gravity="center"
+            android:padding="@dimen/small_space_default"
+            android:textAlignment="center" />
+
+        <!-- spinner to select order type -->
+        <Spinner
+            android:id="@id/main_content_adv_spinner_order"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/large_space_default"
+            android:layout_weight="1"
+            android:background="@drawable/drawable_border_accent"
+            android:padding="@dimen/small_space_default"
+            android:textAlignment="center" />
+
+    </LinearLayout>
+
+    <!-- field to search in title -->
+    <EditText
+        android:id="@id/main_content_adv_edtxt_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/medium_space_default"
+        android:layout_marginTop="@dimen/medium_space_default"
+        android:background="@drawable/drawable_border_accent"
+        android:hint="@string/hint_title_edtxt_main"
+        android:inputType="text"
+        android:padding="@dimen/medium_space_default"
+        android:textAlignment="center" />
+
+    <!-- field to search in author -->
+    <EditText
+        android:id="@id/main_content_adv_edtxt_author"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/medium_space_default"
+        android:layout_marginTop="@dimen/medium_space_default"
+        android:background="@drawable/drawable_border_accent"
+        android:hint="@string/hint_author_edtxt_main"
+        android:inputType="text"
+        android:padding="@dimen/medium_space_default"
+        android:textAlignment="center" />
+
+    <!-- field to search in publisher -->
+    <EditText
+        android:id="@id/main_content_adv_edtxt_publisher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/medium_space_default"
+        android:layout_marginTop="@dimen/medium_space_default"
+        android:background="@drawable/drawable_border_accent"
+        android:hint="@string/hint_title_publisher_main"
+        android:inputType="text"
+        android:padding="@dimen/medium_space_default"
+        android:textAlignment="center" />
+
+    <!-- confirm button for the advanced search -->
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/large_space_default"
+        android:layout_marginTop="@dimen/large_space_default"
+        android:background="@color/colorAccent"
+        android:onClick="clickAdvancedSearchGo"
+        android:text="@string/button_adv_search_main"
+        android:textColor="@color/colorTextPrimaryLight" />
+
+</LinearLayout>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- used to outline views inside the expanded advanced search tab @MainActivity -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@android:color/transparent" />
+
+    <stroke
+        android:width="@dimen/tiny_space_default"
+        android:color="@color/colorAccent" />
+
+    <padding
+        android:bottom="@dimen/tiny_space_default"
+        android:left="@dimen/tiny_space_default"
+        android:right="@dimen/tiny_space_default"
+        android:top="@dimen/tiny_space_default" />
+
+    <corners
+        android:bottomLeftRadius="@dimen/small_space_default"
+        android:bottomRightRadius="@dimen/small_space_default"
+        android:topLeftRadius="@dimen/small_space_default"
+        android:topRightRadius="@dimen/small_space_default" />
+</shape>

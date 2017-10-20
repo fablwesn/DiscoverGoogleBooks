@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+
+        Main content of the HomeScreen
+        includes a button for info and a search interface
+    -->
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- Info Button displaying a toast on click -->
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/medium_space_default"
+        android:layout_marginRight="@dimen/medium_space_default"
+        android:onClick="clickDisplayInfo"
+        android:src="@drawable/ic_library"
+        app:elevation="@dimen/medium_space_default"
+        app:layout_anchor="@id/appbar_layout"
+        app:layout_anchorGravity="bottom|end|right"
+        app:pressedTranslationZ="@dimen/large_space_default" />
+
+
+    <!-- scrollview with content of the activity -->
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/huge_space_default"
+        android:paddingEnd="@dimen/large_space_default"
+        android:paddingLeft="@dimen/large_space_default"
+        android:paddingRight="@dimen/large_space_default"
+        android:paddingStart="@dimen/large_space_default"
+        android:paddingTop="@dimen/huge_space_default"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <!-- includes all content for the user to interact with; regarding the search -->
+        <include layout="@layout/search_interface" />
+
+    </android.support.v4.widget.NestedScrollView>
+</merge>

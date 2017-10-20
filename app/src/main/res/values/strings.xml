@@ -1,0 +1,98 @@
+<resources>
+    <!-- MainActivity label -->
+    <string name="app_name">Discover Google Books</string>
+    <!-- ResultsActivity label after default search initialization -->
+    <string name="results_label">Results for: %1$s</string>
+    <!-- ResultsActivity label after advanced search initialization -->
+    <string name="results_label_adv">Results for: %1$s/%2$s/%3$s</string>
+
+    <!-- title of expandable view holding the adv. search views -->
+    <string name="title_adv_search_view">Advanced Search</string>
+
+    <!--
+         Toasts
+    -->
+    <!-- displayed after the floating button @activity_main is clicked -->
+    <string name="toast_info_main">The results are being displayed directly from\nhttps://books.google.com/</string>
+    <!-- displayed when not enough characters have been typed to initiate a search -->
+    <string name="toast_empty_request_main">Please enter %1$d letters at least.</string>
+    <!-- displayed when not enough characters have been typed to initiate an adv. search -->
+    <string name="toast_empty_request_adv_main">One box must contain %1$d letters at least.</string>
+    <!-- displayed when an invalid character has been typed in the default or advanced search -->
+    <string name="toast_invalid_request_main">Please refrain from using any special characters and numbers.</string>
+
+    <!--
+         Hint text
+    -->
+    <!-- displayed inside the default search view -->
+    <string name="hint_search_view_main">enter search term(s)</string>
+    <!-- inside the edit text for title search -->
+    <string name="hint_title_edtxt_main">search title</string>
+    <!-- inside the edit text for author search -->
+    <string name="hint_author_edtxt_main">search author</string>
+    <!-- inside the edit text for publisher search -->
+    <string name="hint_title_publisher_main">search publisher</string>
+
+    <!--
+         Button labels
+    -->
+    <!-- initiate default search button -->
+    <string name="button_search_main">Discover</string>
+    <!-- initiate advanced search button -->
+    <string name="button_adv_search_main">Start search</string>
+
+    <!--
+         Info/Error text displayed to the user of the app
+    -->
+    <!-- greeting text displayed at the start of the app (if the device is online) -->
+    <string name="note_greeting">TIP:\nUse advanced search below for better search results.</string>
+    <!-- greeting text displayed at the start of the app (if the device is online) -->
+    <string name="note_advanced_search">Each field must contain at least %1$d characters to be included in the search, one is required.</string>
+    <!-- error to display when the device is offline -->
+    <string name="note_device_offline">Your device seems to be offline.\nPlease enable internet connection to use this app.</string>
+
+    <!--
+         Array containing the spinner items for selection of max. results to display
+
+         ! the second item is the default value for results !
+     -->
+    <string-array name="main_advanced_spinner_max_results">
+        <item>max. results:</item>
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+    </string-array>
+
+    <!--
+         Array containing the spinner items for selection of order type to be displayed
+
+         ! the second item is the default value for results !
+     -->
+    <string-array name="main_advanced_spinner_order_by">
+        <item>sort by:</item>
+        <item>relevance</item>
+        <item>newest</item>
+    </string-array>
+
+    <!-- displayed before the data has been downloaded for the list -->
+    <string name="info_loading">Please wait while loading &#8230;</string>
+    <!-- displayed when there is an error building the request url -->
+    <string name="error_build_url">Problem building the URL.\nplease inform feedback@fablwesn.com or try a different query</string>
+
+    <!--
+                        !  DO NOT TRANSLATE THE FOLLOWING STRINGS !
+    -->
+
+    <string name="extra_key_bool_advanced_search">IS_ADVANCED_SEARCH</string>
+    <string name="extra_key_string_default_input">DEFAULT_INPUT</string>
+    <string name="extra_key_string_array_adv_input">ADV_INPUTS</string>
+    <string name="extra_key_string_max_results">MAX_RESULTS</string>
+    <string name="extra_key_string_sort_by">SORT_BY</string>
+<!--
+    <string name="info_error_httprequest">Problem making the HTTP request.\nplease inform feedback@fablwesn.com</string>
+    <string name="info_error_response">No response from server! Try again later.</string>
+    <string name="info_error_retrieve">Problem retrieving the results.\nplease try again later or inform feedback@fablwesn.com</string>
+    <string name="info_error_parsing">Problem parsing the results.\nplease inform feedback@fablwesn.com</string>
+    <string name="info_error_no_results">No search results found.</string> -->
+</resources>

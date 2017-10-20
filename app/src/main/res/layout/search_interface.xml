@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+
+        Search layout used in the HomeScreen
+        consists of the standard search view, a text view for info/errors and a collapsible/expandable advanced search tab
+    -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- Main search field -->
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/large_space_default"
+        card_view:cardBackgroundColor="@color/cardview_light_background"
+        card_view:cardCornerRadius="@dimen/cardview_default_radius"
+        card_view:cardElevation="@dimen/cardview_default_elevation"
+        card_view:contentPadding="@dimen/large_space_default">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- primary search widget -->
+            <android.support.v7.widget.SearchView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@id/main_content_searchview"
+                app:queryHint="@string/hint_search_view_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/large_space_default"
+                queryHint="@string/hint_search_view_main" />
+
+            <!-- additional button to query a search -->
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:onClick="clickDefaultSearchGo"
+                android:text="@string/button_search_main"
+                android:textColor="@color/colorTextPrimaryLight" />
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <!-- Info text informing the user about the current state -->
+    <TextView
+        android:id="@id/main_content_txt_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:textColor="@color/colorTextSecondaryDark" />
+
+    <!-- advanced (optional) search field -->
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/large_space_default"
+        card_view:cardBackgroundColor="@color/cardview_light_background"
+        card_view:cardCornerRadius="@dimen/cardview_default_radius"
+        card_view:cardElevation="@dimen/cardview_default_elevation">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- always visible, displays/hides the next layout on click (animating expanse without using an expandableList just for one item) -->
+            <include layout="@layout/collapsed_adv_search_main" />
+
+            <!-- Advanced options, hidden by default -->
+            <include layout="@layout/expanded_adv_search_main" />
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

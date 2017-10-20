@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+
+        Home-Screen of the app.
+        includes custom toolbar and content for the user to enter his search query
+    -->
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Custom Toolbar -->
+    <include layout="@layout/toolbar_layout" />
+
+    <!-- view widgets for search utility -->
+    <include layout="@layout/content_main" />
+
+</android.support.design.widget.CoordinatorLayout>

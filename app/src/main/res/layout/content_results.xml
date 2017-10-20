@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+
+        Main content of the ResultsScreen
+        includes list of results, a circular progressbar and a text view for info/errors
+    -->
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- scrollview with content of the activity -->
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/huge_space_default"
+        android:paddingEnd="@dimen/large_space_default"
+        android:paddingLeft="@dimen/large_space_default"
+        android:paddingRight="@dimen/large_space_default"
+        android:paddingStart="@dimen/large_space_default"
+        android:paddingTop="@dimen/huge_space_default"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- display results as a list -->
+            <android.support.v7.widget.RecyclerView
+                android:id="@id/results_content_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:scrollbars="vertical" />
+
+            <!-- Loading indicator for user feedback between queries to Google -->
+            <ProgressBar
+                android:id="@id/results_content_progressbar"
+                style="@style/Widget.AppCompat.ProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
+            <!-- Empty view is only visible when the list has no items. -->
+            <TextView
+                android:id="@id/results_content_message_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/large_space_default"
+                android:gravity="center"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:textColor="@color/colorTextSecondaryDark" />
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</merge>

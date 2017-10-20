@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- default alignment values used for margin/padding/space widgets/... -->
+    <dimen name="tiny_space_default">2dp</dimen>
+    <dimen name="small_space_default">4dp</dimen>
+    <dimen name="medium_space_default">8dp</dimen>
+    <dimen name="large_space_default">16dp</dimen>
+    <dimen name="huge_space_default">32dp</dimen>
+
+    <!-- max height of the expanded toolbar (and it's background image) -->
+    <dimen name="collapsing_toolbar_height">256sp</dimen>
+
+    <!-- list item height in results screen -->
+    <dimen name="list_item_results_height">128dp</dimen>
+</resources>
