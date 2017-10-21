@@ -25,7 +25,10 @@ import java.util.regex.Pattern;
  */
 class MiscUtils {
 
+    //Tag for logging
     private static final String LOG_TAG = MiscUtils.class.getName();
+    //Error message for parsing
+    private static final String ERROR_PARSING = "Problem parsing the results. Please inform feedback@fablwesn.com";
 
     // if one of the requested items can't be found in the json parsing process, display this instead
     private static final String JSON_EMPTY_STRING_REPLACEMENT = "N/A";
@@ -38,8 +41,9 @@ class MiscUtils {
     private static final String JSON_PARSE_ITEM_TITLE = "title";
     private static final String JSON_PARSE_ARRAY_AUTHORS = "authors";
     private static final String JSON_PARSE_ITEM_PUBLISHER = "publisher";
-    private static final String JSON_PARSE_ARRAY_COVER_URL = "imageLinks";
-    private static final int JSON_PARSE_ARRAY_POSITION_COVER_URL = 1;
+    private static final String JSON_PARSE_ITEM_RELEASE_YEAR = "publishedDate";
+    private static final String JSON_PARSE_OBJECT_IMAGE_URL = "imageLinks";
+    private static final String JSON_PARSE_STRING_THUMBNAIL_URL = "smallThumbnail";
     private static final String JSON_PARSE_ITEM_DIRECT_LINK_URL = "infoLink";
 
     /**
@@ -98,7 +102,7 @@ class MiscUtils {
 
     /**
      * Return a list of {@link BookModel} objects that has been built up from
-     * parsing the given JSON response. TODO
+     * parsing the given JSON response.
      */
     static List<BookModel> parseResultsJson(String searchResultsJson) {
         // If the JSON string is empty or null, then return early.
@@ -106,79 +110,89 @@ class MiscUtils {
             return null;
         }
 
-        // Create an empty ArrayList that we can start adding books to
+        // Create an empty ArrayList used to add books
         List<BookModel> books = new ArrayList<>();
 
-        // Try to parse the JSON response string. If there's a problem with the way the JSON
-        // is formatted, a JSONException exception object will be thrown.
         try {
-            // Create a JSONObject from the JSON response string
             JSONObject baseJsonResponse = new JSONObject(searchResultsJson);
 
-            // Extract the JSONArray associated with the key called "items",
-            // which represents a list of items (or books).
-            JSONArray itemsArray = baseJsonResponse.getJSONArray(JSON_PARSE_MAIN_ITEMS);
+            if (baseJsonResponse.has(JSON_PARSE_MAIN_ITEMS)) {
+                JSONArray bookArray = baseJsonResponse.getJSONArray(JSON_PARSE_MAIN_ITEMS);
 
-            // For each volume in the itemsArray, create an {@link BookModel} object
-            for (int i = 0; i < itemsArray.length(); i++) {
-                // Get a single book at position i w/in the list of books
-                JSONObject currentItem = itemsArray.getJSONObject(i);
+                for (int i = 0; i < bookArray.length(); i++) {
 
-                // For a given book, extract the JSONObject associated with the
-                // key called "volumeInfo", which represents a list of all volumeInfo
-                // for that book.
-                JSONObject volumeInfo = currentItem.getJSONObject(JSON_PARSE_ARRAY_VOLUME_INFO);
+                    JSONObject currentBook = bookArray.getJSONObject(i);
+                    JSONObject volumeInfo = currentBook.getJSONObject(JSON_PARSE_ARRAY_VOLUME_INFO);
 
-                // get the title
-                String title = volumeInfo.getString(JSON_PARSE_ITEM_TITLE);
-                // get the publisher
-                String publisher = volumeInfo.getString(JSON_PARSE_ITEM_PUBLISHER);
-                // get the external info link
-                String infoUrl = volumeInfo.getString(JSON_PARSE_ITEM_DIRECT_LINK_URL);
+                    // get title
+                    String title = volumeInfo.getString(JSON_PARSE_ITEM_TITLE);
 
-                // get the author(s)
-                String author = "";
-                JSONArray authorsArray;
-                if (volumeInfo.has(JSON_PARSE_ARRAY_AUTHORS)) {
-                    authorsArray = volumeInfo.getJSONArray(JSON_PARSE_ARRAY_AUTHORS);
+                    // get the author(s)
+                    String author = "";
+                    JSONArray authorsArray;
+                    if (volumeInfo.has(JSON_PARSE_ARRAY_AUTHORS)) {
+                        authorsArray = volumeInfo.getJSONArray(JSON_PARSE_ARRAY_AUTHORS);
 
-                    int authLength = authorsArray.length();
-                    // if authorsArray is not found(<1) respond accordingly in JSONArray("authors")
-                    if (authLength < 1) {
-                        author = JSON_EMPTY_STRING_REPLACEMENT;
-                        // if only one authorsArray is found(==1) respond authors name(0 Array) in JSONArray("authors")
-                    } else if (authLength == 1) {
-                        author = authorsArray.getString(0);
-                        // if more than one authorsArray's are found(>1) then PrintOut all the authors name's in JSONArray("authors")
-                    } else {
-                        for (int j = 0; j < authorsArray.length(); j++) {
-                            if (j == 0) {
-                                author += authorsArray.getString(j);
-                                continue;
+                        int authLength = authorsArray.length();
+                        // if authorsArray is not found(<1) respond accordingly in JSONArray("authors")
+                        if (authLength < 1) {
+                            author = JSON_EMPTY_STRING_REPLACEMENT;
+                            // if only one authorsArray is found(==1) respond authors name(0 Array) in JSONArray("authors")
+                        } else if (authLength == 1) {
+                            author = authorsArray.getString(0);
+                            // if more than one authorsArray's are found(>1) then PrintOut all the authors name's in JSONArray("authors")
+                        } else {
+                            for (int j = 0; j < authorsArray.length(); j++) {
+                                if (j == 0) {
+                                    author += authorsArray.getString(j);
+                                    continue;
+                                }
+                                author += JSON_MULTIPLE_AUTHORS_SEPARATOR + authorsArray.getString(j);
                             }
-                            author += JSON_MULTIPLE_AUTHORS_SEPARATOR + authorsArray.getString(j);
                         }
                     }
+
+                    // get publisher
+                    String publisher = "";
+                    if (volumeInfo.has(JSON_PARSE_ITEM_PUBLISHER))
+                        publisher = volumeInfo.getString(JSON_PARSE_ITEM_PUBLISHER);
+
+                    // get release year
+                    String releaseYear = "";
+                    if (volumeInfo.has(JSON_PARSE_ITEM_RELEASE_YEAR))
+                        releaseYear = volumeInfo.getString(JSON_PARSE_ITEM_RELEASE_YEAR);
+
+                    // get cover img url
+                    String thumbnail = "";
+                    if (volumeInfo.has(JSON_PARSE_OBJECT_IMAGE_URL)) {
+                        JSONObject imageLinks = volumeInfo.getJSONObject(JSON_PARSE_OBJECT_IMAGE_URL);
+                        if (imageLinks.has(JSON_PARSE_STRING_THUMBNAIL_URL))
+                            thumbnail = imageLinks.getString(JSON_PARSE_STRING_THUMBNAIL_URL);
+                    }
+
+                    // get info link
+                    String directLink = "";
+                    if (volumeInfo.has(JSON_PARSE_ITEM_DIRECT_LINK_URL))
+                        directLink = volumeInfo.getString(JSON_PARSE_ITEM_DIRECT_LINK_URL);
+
+
+                    // Create a new {@link Book} object with parameters obtained from JSON response
+                    BookModel book = new BookModel(
+                            title,
+                            author,
+                            publisher,
+                            releaseYear,
+                            thumbnail,
+                            directLink
+                    );
+
+                    // Add the new {@link Book} object to the list of books
+                    books.add(book);
                 }
-
-                // get the link to the preview Image load from
-                String coverUrl = "";
-
-                //if found, assign the correct url - leave empty if not
-                if (volumeInfo.has(JSON_PARSE_ARRAY_COVER_URL)) {
-                    JSONArray thumbnailUrls = volumeInfo.getJSONArray(JSON_PARSE_ARRAY_COVER_URL);
-                    coverUrl = thumbnailUrls.getString(JSON_PARSE_ARRAY_POSITION_COVER_URL);
-                }
-
-                BookModel book = new BookModel(title, author, publisher, coverUrl, infoUrl);
-
-                // Add the new {@link BookModel} to the list of books.
-                books.add(book);
             }
 
         } catch (JSONException e) {
-            // If an error is thrown when executing any of the above statements in the "try" block
-            Log.e(LOG_TAG, "Problem parsing the volume JSON results", e);
+            Log.e(LOG_TAG, ERROR_PARSING, e);
         }
 
         // Return the list of books

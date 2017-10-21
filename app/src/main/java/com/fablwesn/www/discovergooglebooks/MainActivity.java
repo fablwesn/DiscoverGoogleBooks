@@ -224,8 +224,7 @@ public class MainActivity extends AppCompatActivity {
      * @param title     user input in the title search edit text
      * @param author    user input in the author search edit text
      * @param publisher user input in the publisher search edit text
-     *
-     * @return  null if no entries are valid, if at least one is return a String[] holding all valid entries and empty for invalid ones
+     * @return null if no entries are valid, if at least one is return a String[] holding all valid entries and empty for invalid ones
      */
     private String[] createAdvancedQuery(String title, String author, String publisher) {
         // holding the validated query inputs
@@ -283,7 +282,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * collapses/expands the advanced search tab, depending on it's current state
      *
-     * @param advancedTab   view getting the listener
+     * @param advancedTab view getting the listener
      */
     public void clickAdvancedSearchToggle(View advancedTab) {
         final LinearLayout advancedView = findViewById(R.id.main_content_linlay_adv_expanded);
