@@ -42,6 +42,12 @@
     <string name="button_adv_search_main">Start search</string>
 
     <!--
+         Image content descriptions
+    -->
+    <string name="image_cd_list_cover">Displays the preview cover image of the search result.</string>
+    <string name="image_cd_list_link">Displays a browser globe opening the official Google Books link of the book on click.</string>
+
+    <!--
          Info/Error text displayed to the user of the app
     -->
     <!-- greeting text displayed at the start of the app (if the device is online) -->
@@ -79,6 +85,8 @@
     <string name="info_loading">Please wait while loading &#8230;</string>
     <!-- displayed when there is an error building the request url -->
     <string name="error_build_url">Problem building the URL.\nplease inform feedback@fablwesn.com or try a different query</string>
+    <!-- displayed when no search results were found -->
+    <string name="error_no_results">No search results found.</string>
 
     <!--
                         !  DO NOT TRANSLATE THE FOLLOWING STRINGS !
@@ -89,10 +97,6 @@
     <string name="extra_key_string_array_adv_input">ADV_INPUTS</string>
     <string name="extra_key_string_max_results">MAX_RESULTS</string>
     <string name="extra_key_string_sort_by">SORT_BY</string>
-<!--
-    <string name="info_error_httprequest">Problem making the HTTP request.\nplease inform feedback@fablwesn.com</string>
-    <string name="info_error_response">No response from server! Try again later.</string>
-    <string name="info_error_retrieve">Problem retrieving the results.\nplease try again later or inform feedback@fablwesn.com</string>
-    <string name="info_error_parsing">Problem parsing the results.\nplease inform feedback@fablwesn.com</string>
-    <string name="info_error_no_results">No search results found.</string> -->
+    <string name="extra_key_recycler_state">RECYCLER_STATE</string>
+
 </resources>

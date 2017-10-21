@@ -10,6 +10,13 @@
     <!-- max height of the expanded toolbar (and it's background image) -->
     <dimen name="collapsing_toolbar_height">256sp</dimen>
 
-    <!-- list item height in results screen -->
-    <dimen name="list_item_results_height">128dp</dimen>
+    <!-- list item height -->
+    <dimen name="list_item_height">184dp</dimen>
+    <!-- book cover size in each list item -->
+    <dimen name="list_item_preview_image_height">180dp</dimen>
+    <dimen name="list_item_preview_image_width">128dp</dimen>
+    <!-- text sizes for the list items -->
+    <dimen name="list_item_title_height_sp">14sp</dimen>
+    <dimen name="list_item_author_height_sp">14sp</dimen>
+    <dimen name="list_item_publisher_height_sp">12sp</dimen>
 </resources>

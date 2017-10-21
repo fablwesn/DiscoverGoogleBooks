@@ -6,7 +6,7 @@
     xmlns:cardview="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/list_item_results_height"
+    android:layout_height="@dimen/list_item_height"
     android:layout_gravity="center"
     android:layout_margin="@dimen/medium_space_default"
     cardview:cardBackgroundColor="@color/cardview_light_background"
@@ -15,19 +15,20 @@
     cardview:contentPadding="@dimen/medium_space_default">
 
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent">
 
         <!-- display the book's cover image -->
         <ImageView
             android:id="@id/list_item_img_cover"
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/list_item_preview_image_width"
+            android:layout_height="@dimen/list_item_preview_image_height"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:adjustViewBounds="true"
             android:background="@drawable/drawable_border_accent"
+            android:contentDescription="@string/image_cd_list_cover"
             android:scaleType="center" />
 
         <!-- displays book's title -->
@@ -35,8 +36,8 @@
             android:id="@id/list_item_txt_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginBottom="@dimen/tiny_space_default"
+            android:layout_alignTop="@id/list_item_img_cover"
+            android:layout_marginBottom="@dimen/medium_space_default"
             android:layout_marginLeft="@dimen/large_space_default"
             android:layout_marginStart="@dimen/large_space_default"
             android:layout_marginTop="@dimen/large_space_default"
@@ -44,7 +45,10 @@
             android:layout_toLeftOf="@id/list_item_img_internet"
             android:layout_toRightOf="@id/list_item_img_cover"
             android:layout_toStartOf="@id/list_item_img_internet"
+            android:ellipsize="end"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:textSize="@dimen/list_item_title_height_sp"
+            android:textStyle="bold"
             tools:text="Title" />
 
         <!-- displays book's author -->
@@ -52,16 +56,19 @@
             android:id="@id/list_item_txt_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_above="@id/list_item_txt_publisher"
             android:layout_below="@id/list_item_txt_title"
             android:layout_marginBottom="@dimen/small_space_default"
             android:layout_marginLeft="@dimen/large_space_default"
             android:layout_marginStart="@dimen/large_space_default"
-            android:layout_marginTop="@dimen/tiny_space_default"
+            android:layout_marginTop="@dimen/medium_space_default"
             android:layout_toEndOf="@id/list_item_img_cover"
             android:layout_toLeftOf="@id/list_item_img_internet"
             android:layout_toRightOf="@id/list_item_img_cover"
             android:layout_toStartOf="@id/list_item_img_internet"
+            android:ellipsize="end"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textSize="@dimen/list_item_author_height_sp"
             android:textStyle="bold"
             tools:text="by Author" />
 
@@ -70,19 +77,43 @@
             android:id="@id/list_item_txt_publisher"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_below="@id/list_item_txt_author"
-            android:layout_marginBottom="@dimen/large_space_default"
+            android:layout_above="@id/list_item_txt_published_date"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/list_item_img_internet"
+            android:layout_marginBottom="@dimen/tiny_space_default"
             android:layout_marginLeft="@dimen/large_space_default"
-            android:layout_marginStart="@dimen/large_space_default"
-            android:layout_marginTop="@dimen/medium_space_default"
+            android:layout_marginStart="@dimen/medium_space_default"
+            android:layout_marginTop="@dimen/small_space_default"
             android:layout_toEndOf="@id/list_item_img_cover"
-            android:layout_toLeftOf="@id/list_item_img_internet"
             android:layout_toRightOf="@id/list_item_img_cover"
-            android:layout_toStartOf="@id/list_item_img_internet"
+            android:ellipsize="end"
+            android:gravity="end|bottom"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+            android:textSize="@dimen/list_item_publisher_height_sp"
             android:textStyle="italic"
             tools:text="published by Publisher" />
+
+        <!-- displays book's release date -->
+        <TextView
+            android:id="@id/list_item_txt_published_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="@dimen/large_space_default"
+            android:layout_marginStart="@dimen/large_space_default"
+            android:layout_marginTop="@dimen/tiny_space_default"
+            android:layout_toEndOf="@id/list_item_img_cover"
+            android:layout_toRightOf="@id/list_item_img_cover"
+            android:ellipsize="end"
+            android:gravity="end|bottom"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+            android:textSize="@dimen/list_item_publisher_height_sp"
+            android:textStyle="italic"
+            tools:text="1917" />
+
 
         <!-- icon opening the google books page about the book on click -->
         <ImageView
@@ -92,10 +123,9 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_margin="@dimen/large_space_default"
+            android:contentDescription="@string/image_cd_list_link"
             android:padding="@dimen/large_space_default"
             android:src="@drawable/ic_open_browser" />
-
 
     </RelativeLayout>
 </android.support.v7.widget.CardView>

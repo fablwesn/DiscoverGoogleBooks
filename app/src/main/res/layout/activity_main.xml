@@ -4,6 +4,7 @@
         includes custom toolbar and content for the user to enter his search query
     -->
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/main_act_coordinator_lay"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
