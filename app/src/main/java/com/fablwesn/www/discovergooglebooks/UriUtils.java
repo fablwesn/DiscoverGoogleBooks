@@ -11,7 +11,7 @@ import java.net.URL;
 class UriUtils {
 
     //tag used for debugging
-    static final String LOG_TAG = UriUtils.class.getName();
+    private static final String LOG_TAG = UriUtils.class.getName();
 
     /**
      * url parts resulting in "https://www.googleapis.com/books/v1/volumes?q=SEARCH+TERM&maxResults=PARAM_MAX&orderBy=PARAM_ORDER"

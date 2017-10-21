@@ -1,5 +1,7 @@
 package com.fablwesn.www.discovergooglebooks;
 
+import android.app.LoaderManager;
+import android.content.Loader;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -8,11 +10,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.net.URL;
+import java.util.List;
 
 /**
  * Starts a search with the user input from {@link MainActivity} and responds correspondingly
  */
-public class ResultsActivity extends AppCompatActivity {
+public class ResultsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<BookModel>> {
 
     // replace character for empty queries used for the toolbar label
     final static String EMPTY_LABEL_CHAR = "-";
@@ -20,6 +23,9 @@ public class ResultsActivity extends AppCompatActivity {
     final static String DEFAULT_RESULTS_QUANTITY = "5";
     // default value for search result's sorting type
     final static String DEFAULT_RESULTS_ORDER = "relevance";
+
+    // constructed url to be loaded from
+    private URL requestUrl;
 
     // loading indicator
     ProgressBar loadingIndicator;
@@ -45,9 +51,6 @@ public class ResultsActivity extends AppCompatActivity {
         // prepare the loading indicator and the text view for state feedback
         setLoadingView();
 
-        //url to use for the request
-        final URL requestUrl;
-
         // start the corresponding building of the URL, depending on the search type
         if (!isAdvancedSearch)
             requestUrl = UriUtils.buildDefaultUrl(
@@ -67,9 +70,43 @@ public class ResultsActivity extends AppCompatActivity {
             return;
         }
 
-        //TODO:REMOVE
+        // Get a reference to the LoaderManager, in order to interact with loaders.
+        LoaderManager loaderManager = getLoaderManager();
+        loaderManager.initLoader(0, null, this);
+    }
+
+    /* onCreateLoader
+    *   - called when a new Loader needs to be created
+    **********************************************************************/
+    @Override
+    public Loader<List<BookModel>> onCreateLoader(int i, Bundle bundle) {
+        return new BooksLoader(ResultsActivity.this, requestUrl);
+    }
+
+    /* onLoadFinished
+     *  - update views accordingly
+     *  - update list adapter TODO
+     *********************************************************************/
+    @Override
+    public void onLoadFinished(Loader<List<BookModel>> loader, List<BookModel> books) {
+
+        // Hide progress indicator because the data has been loaded
         loadingIndicator.setVisibility(View.GONE);
-        noListText.setText(requestUrl.toString());
+
+        // Set empty state text when no books found
+
+        // Clear the adapter of previous book data
+
+        // If there is a valid list of {@link Book}s, then add them to the adapter's
+        // data set. This will trigger the ListView to update.
+    }
+
+    /* onLoaderReset
+    *   - clears the adapter to make room for new data TODO
+    *************************************************************/
+    @Override
+    public void onLoaderReset(Loader<List<BookModel>> loader) {
+        //clear adapter
     }
 
 
@@ -99,7 +136,7 @@ public class ResultsActivity extends AppCompatActivity {
             if (queryInputs != null) {
                 //replace any empty item with a EMPTY_LABEL_CHAR char
                 for (int i = 0; i < queryInputs.length; i++) {
-                    if(queryInputs[i].isEmpty())
+                    if (queryInputs[i].isEmpty())
                         queryInputs[i] = EMPTY_LABEL_CHAR;
                 }
                 title = getResources().getString(R.string.results_label_adv, queryInputs[0], queryInputs[1], queryInputs[2]);

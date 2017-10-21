@@ -21,17 +21,22 @@ class BookModel {
     * Book's cover uri
     * */
     private String bookCover;
+    /*
+    * Book's official url to the Google Books Page
+    * */
+    private String bookUrl;
 
     /* Empty constructor */
     BookModel() {
     }
 
     /* Class constructor */
-    BookModel(String bookTitle, String bookAuthor, String bookPublisher, String bookCover) {
+    BookModel(String bookTitle, String bookAuthor, String bookPublisher, String bookCover, String bookUrl) {
         this.bookTitle = bookTitle;
         this.bookAuthor = bookAuthor;
         this.bookPublisher = bookPublisher;
         this.bookCover = bookCover;
+        this.bookUrl = bookUrl;
     }
 
     /*
@@ -54,6 +59,10 @@ class BookModel {
     public String getBookCover() {
         return bookCover;
     }
+    // get book's official Google Books url as string
+    public String getBookUrl() {
+        return bookUrl;
+    }
 
     /*
     * toString method
@@ -65,6 +74,7 @@ class BookModel {
                 ", bookAuthor='" + bookAuthor + '\'' +
                 ", bookPublisher='" + bookPublisher + '\'' +
                 ", bookCover='" + bookCover + '\'' +
+                ", bookUrl='" + bookUrl + '\'' +
                 '}';
     }
 }

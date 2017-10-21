@@ -3,11 +3,23 @@ package com.fablwesn.www.discovergooglebooks;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.List;
+
+import static com.fablwesn.www.discovergooglebooks.MiscUtils.parseResultsJson;
+import static com.fablwesn.www.discovergooglebooks.MiscUtils.readFromStream;
 
 /**
  * Utility class for everything relating to network
  */
 class NetworkUtils {
+
+    private static final String LOG_TAG = NetworkUtils.class.getName();
 
     /**
      * check's if the device has internet connectivity
@@ -20,5 +32,79 @@ class NetworkUtils {
                 = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    /**
+     * create the needed data for the list view
+     *
+     * @param url   request url
+     *
+     * @return  list containing {@link BookModel} objects from requested search query TODO
+     */
+    static List<BookModel> fetchSearchResults(URL url){
+
+        // Perform HTTP request to the URL and receive a JSON response back
+        String jsonResponse = null;
+        try {
+            jsonResponse = makeHttpRequest(url);
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "Problem making the HTTP request.", e);
+        }
+
+        // Extract relevant fields from the JSON response and create a list of {@link Earthquake}s
+        List<BookModel> books = parseResultsJson(jsonResponse);
+
+        // Return the list of {@link Earthquake}s
+        return books;
+    }
+
+    /**
+     * Make a HTTP request to the given URL and return a String containing the json response
+     *
+     * @param url   url to get the response from
+     *
+     * @return  string containing the response as json
+     *
+     * @throws IOException closing the input stream could throw an IOException TODO
+     */
+    private static String makeHttpRequest(URL url) throws IOException {
+        String jsonResponse = "";
+
+        // If the URL is null, then return early.
+        if (url == null) {
+            return jsonResponse;
+        }
+
+        // try connecting to the url
+        HttpURLConnection urlConnection = null;
+        InputStream inputStream = null;
+        try {
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setReadTimeout(10000 /* milliseconds */);
+            urlConnection.setConnectTimeout(15000 /* milliseconds */);
+            urlConnection.setRequestMethod("GET");
+            urlConnection.connect();
+
+            // If the request was successful (response code 200),
+            // then read the input stream and parse the response.
+            if (urlConnection.getResponseCode() == 200) {
+                inputStream = urlConnection.getInputStream();
+                jsonResponse = readFromStream(inputStream);
+            } else {
+                Log.e(LOG_TAG, "Error response code: " + urlConnection.getResponseCode());
+            }
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "Problem retrieving the earthquake JSON results.", e);
+        } finally {
+            // close the connection if we didn't get the response we needed
+            if (urlConnection != null) {
+                urlConnection.disconnect();
+            }
+            if (inputStream != null) {
+                inputStream.close();
+            }
+        }
+        // return the response string
+        return jsonResponse;
     }
 }

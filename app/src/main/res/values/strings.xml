@@ -54,7 +54,7 @@
     <!--
          Array containing the spinner items for selection of max. results to display
 
-         ! the second item is the default value for results !
+         ! if you add more items, they need to be numeric to be valid !
      -->
     <string-array name="main_advanced_spinner_max_results">
         <item>max. results:</item>
@@ -67,7 +67,7 @@
     <!--
          Array containing the spinner items for selection of order type to be displayed
 
-         ! the second item is the default value for results !
+         ! don't add more as there are no other sorting params in the API !
      -->
     <string-array name="main_advanced_spinner_order_by">
         <item>sort by:</item>
