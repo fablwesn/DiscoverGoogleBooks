@@ -10,8 +10,10 @@ import java.net.URL;
  */
 class UriUtils {
 
-    //tag used for debugging
+    // Tag for logging
     private static final String LOG_TAG = UriUtils.class.getName();
+    // Log error message when building the url failed
+    private static final String ERROR_LOG_BUILDING_URL = "Problem building the URL. Please inform feedback@fablwesn.com or try a different query";
 
     /**
      * url parts resulting in "https://www.googleapis.com/books/v1/volumes?q=SEARCH+TERM&maxResults=PARAM_MAX&orderBy=PARAM_ORDER"
@@ -102,19 +104,19 @@ class UriUtils {
         StringBuilder builder = new StringBuilder(REQUEST_URL_RAW);
 
         // add search values for a title search if one is requested
-        if(!titleQuery.isEmpty() && !titleQuery.contentEquals(ResultsActivity.EMPTY_LABEL_CHAR)){
+        if (!titleQuery.isEmpty() && !titleQuery.contentEquals(ResultsActivity.EMPTY_LABEL_CHAR)) {
             builder.append(REQUEST_URL_QUERY_SEARCH_TITLE)
                     .append(titleQuery.replace(" ", "+"));
         }
 
         // add search values for an author search if one is requested
-        if(!authorQuery.isEmpty() && !authorQuery.contentEquals(ResultsActivity.EMPTY_LABEL_CHAR)){
+        if (!authorQuery.isEmpty() && !authorQuery.contentEquals(ResultsActivity.EMPTY_LABEL_CHAR)) {
             builder.append(REQUEST_URL_QUERY_SEARCH_AUTHOR)
                     .append(authorQuery.replace(" ", "+"));
         }
 
         // add search values for a publisher search if one is requested
-        if(!publisherQuery.isEmpty() && !publisherQuery.contentEquals(ResultsActivity.EMPTY_LABEL_CHAR)){
+        if (!publisherQuery.isEmpty() && !publisherQuery.contentEquals(ResultsActivity.EMPTY_LABEL_CHAR)) {
             builder.append(REQUEST_URL_QUERY_SEARCH_PUBLISHER)
                     .append(publisherQuery.replace(" ", "+"));
         }
@@ -131,7 +133,7 @@ class UriUtils {
             requestURL = new URL(builtUrl);
             return requestURL;
         } catch (MalformedURLException e) {
-            Log.e(LOG_TAG, "buildDefaultUrl(): Problem building the URL ", e);
+            Log.e(LOG_TAG, ERROR_LOG_BUILDING_URL, e);
             return null;
         }
     }
