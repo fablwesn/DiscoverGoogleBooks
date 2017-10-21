@@ -19,7 +19,14 @@ import static com.fablwesn.www.discovergooglebooks.MiscUtils.readFromStream;
  */
 class NetworkUtils {
 
+    //Tag for logging
     private static final String LOG_TAG = NetworkUtils.class.getName();
+    //Error message for http request
+    private static final String ERROR_HTTP = "Problem making the HTTP request. Please inform feedback@fablwesn.com";
+    //Error message for error response code
+    private static final String ERROR_RESPONSE = "Server Error! Response Code: ";
+    //Error message for problems with retrieved json
+    private static final String ERROR_JSON = "Problem retrieving the results. Please try again later or inform feedback@fablwesn.com";
 
     /**
      * check's if the device has internet connectivity
@@ -39,7 +46,7 @@ class NetworkUtils {
      *
      * @param url   request url
      *
-     * @return  list containing {@link BookModel} objects from requested search query TODO
+     * @return  list containing {@link BookModel} objects from requested search query
      */
     static List<BookModel> fetchSearchResults(URL url){
 
@@ -48,14 +55,11 @@ class NetworkUtils {
         try {
             jsonResponse = makeHttpRequest(url);
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Problem making the HTTP request.", e);
+            Log.e(LOG_TAG, ERROR_HTTP, e);
         }
 
-        // Extract relevant fields from the JSON response and create a list of {@link Earthquake}s
-        List<BookModel> books = parseResultsJson(jsonResponse);
-
-        // Return the list of {@link Earthquake}s
-        return books;
+        // Return the list of {@link BookModel}s
+        return parseResultsJson(jsonResponse);
     }
 
     /**
@@ -65,7 +69,7 @@ class NetworkUtils {
      *
      * @return  string containing the response as json
      *
-     * @throws IOException closing the input stream could throw an IOException TODO
+     * @throws IOException closing the input stream could throw an IOException
      */
     private static String makeHttpRequest(URL url) throws IOException {
         String jsonResponse = "";
@@ -91,10 +95,10 @@ class NetworkUtils {
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
             } else {
-                Log.e(LOG_TAG, "Error response code: " + urlConnection.getResponseCode());
+                Log.e(LOG_TAG, ERROR_RESPONSE + urlConnection.getResponseCode());
             }
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Problem retrieving the earthquake JSON results.", e);
+            Log.e(LOG_TAG, ERROR_JSON, e);
         } finally {
             // close the connection if we didn't get the response we needed
             if (urlConnection != null) {
