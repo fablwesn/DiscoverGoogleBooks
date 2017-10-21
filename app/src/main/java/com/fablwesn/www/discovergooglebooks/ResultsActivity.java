@@ -3,7 +3,11 @@ package com.fablwesn.www.discovergooglebooks;
 import android.app.LoaderManager;
 import android.content.Loader;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -27,15 +31,27 @@ public class ResultsActivity extends AppCompatActivity implements LoaderManager.
     // constructed url to be loaded from
     private URL requestUrl;
 
+    // list containing all books to display
+    List<BookModel> displayedBookList;
+
+    // RecyclerView displaying the list
+    private RecyclerView recyclerView;
+    // recycler view's adapter
+    private ResultsListAdapter recyclerViewAdapter;
+    // bundle used to save the list's scroll position
+    private static Bundle bundleRecyclerViewState;
+
     // loading indicator
-    ProgressBar loadingIndicator;
+    private ProgressBar loadingIndicator;
     // error/info/empty list text view
-    TextView noListText;
+    private TextView noListText;
 
     /* onCreate
     *  - gets extras
     *  - sets up toolbar and label
-    *  - starts building the url and begins loading data if no problems occurred
+    *  - starts building the url
+    *  - prepare recycler view and it's adapter
+     * - begins loading data if no problems occurred
     **********************************************************************/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,9 +86,43 @@ public class ResultsActivity extends AppCompatActivity implements LoaderManager.
             return;
         }
 
+        //prepare the Recycler to receive an adapter after loading finishes
+        recyclerView = findViewById(R.id.results_content_recycler);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
         // Get a reference to the LoaderManager, in order to interact with loaders.
         LoaderManager loaderManager = getLoaderManager();
         loaderManager.initLoader(0, null, this);
+    }
+
+    /* onPause
+    *   - saves recycler view scroll position (on screen orientation change for example)
+    **********************************************************************/
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        // save RecyclerView state
+        bundleRecyclerViewState = new Bundle();
+        Parcelable listState = recyclerView.getLayoutManager().onSaveInstanceState();
+        bundleRecyclerViewState.putParcelable(getResources().getString(R.string.extra_key_recycler_state), listState);
+    }
+
+    /* onResume
+    *   - retrieve previous recycler view scroll position (on screen orientation change for example)
+    **********************************************************************/
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        // restore RecyclerView state
+        if (bundleRecyclerViewState != null) {
+            Parcelable listState = bundleRecyclerViewState.getParcelable(getResources().getString(R.string.extra_key_recycler_state));
+            recyclerView.getLayoutManager().onRestoreInstanceState(listState);
+        }
     }
 
     /* onCreateLoader
@@ -85,7 +135,7 @@ public class ResultsActivity extends AppCompatActivity implements LoaderManager.
 
     /* onLoadFinished
      *  - update views accordingly
-     *  - update list adapter TODO
+     *  - update list adapter
      *********************************************************************/
     @Override
     public void onLoadFinished(Loader<List<BookModel>> loader, List<BookModel> books) {
@@ -93,20 +143,28 @@ public class ResultsActivity extends AppCompatActivity implements LoaderManager.
         // Hide progress indicator because the data has been loaded
         loadingIndicator.setVisibility(View.GONE);
 
-        // Set empty state text when no books found
-
         // Clear the adapter of previous book data
+        clearBookAdapter();
 
-        // If there is a valid list of {@link Book}s, then add them to the adapter's
+        // If there is a valid list of {@link BookModel}s, then add them to the adapter's
         // data set. This will trigger the ListView to update.
+        if (books != null && !books.isEmpty()) {
+            noListText.setVisibility(View.GONE);
+            recyclerViewAdapter = new ResultsListAdapter(books);
+            recyclerView.setAdapter(recyclerViewAdapter);
+        }
+        // if empty, inform the user
+        else {
+            noListText.setText(R.string.error_no_results);
+        }
     }
 
     /* onLoaderReset
-    *   - clears the adapter to make room for new data TODO
+    *   - clears the adapter to make room for new data
     *************************************************************/
     @Override
     public void onLoaderReset(Loader<List<BookModel>> loader) {
-        //clear adapter
+        clearBookAdapter();
     }
 
 
@@ -167,5 +225,15 @@ public class ResultsActivity extends AppCompatActivity implements LoaderManager.
 
     /*                                   private functions                                        */
     /*                                   ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯                                        */
+
+    /**
+     * equivalent of list's .clear() for the recycler view
+     */
+    private void clearBookAdapter(){
+        if(displayedBookList != null){
+            displayedBookList.clear();
+            recyclerViewAdapter.notifyDataSetChanged();
+        }
+    }
 
 }
