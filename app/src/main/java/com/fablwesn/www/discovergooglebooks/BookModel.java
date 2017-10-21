@@ -18,6 +18,10 @@ class BookModel {
     * */
     private String bookPublisher;
     /*
+    * Book's published year
+    * */
+    private String bookReleaseYear;
+    /*
     * Book's cover uri
     * */
     private String bookCover;
@@ -26,41 +30,47 @@ class BookModel {
     * */
     private String bookUrl;
 
-    /* Empty constructor */
-    BookModel() {
-    }
-
     /* Class constructor */
-    BookModel(String bookTitle, String bookAuthor, String bookPublisher, String bookCover, String bookUrl) {
+    BookModel(String bookTitle, String bookAuthor, String bookPublisher, String bookReleaseYear, String bookCover, String bookUrl) {
         this.bookTitle = bookTitle;
         this.bookAuthor = bookAuthor;
         this.bookPublisher = bookPublisher;
+        this.bookReleaseYear = bookReleaseYear;
         this.bookCover = bookCover;
         this.bookUrl = bookUrl;
     }
 
-    /*
+   /*
     * Getter methods
     * */
 
     // get title string
-    public String getBookTitle() {
+    String getBookTitle() {
         return bookTitle;
     }
+
     // get author string
-    public String getBookAuthor() {
+    String getBookAuthor() {
         return bookAuthor;
     }
+
     // get publisher string
-    public String getBookPublisher() {
+    String getBookPublisher() {
         return bookPublisher;
     }
+
+    // get release year string
+    String getBookReleaseYear() {
+        return bookReleaseYear;
+    }
+
     // get book cover url as string
-    public String getBookCover() {
+    String getBookCover() {
         return bookCover;
     }
+
     // get book's official Google Books url as string
-    public String getBookUrl() {
+    String getBookUrl() {
         return bookUrl;
     }
 
@@ -73,6 +83,7 @@ class BookModel {
                 "bookTitle='" + bookTitle + '\'' +
                 ", bookAuthor='" + bookAuthor + '\'' +
                 ", bookPublisher='" + bookPublisher + '\'' +
+                ", bookReleaseYear='" + bookReleaseYear + '\'' +
                 ", bookCover='" + bookCover + '\'' +
                 ", bookUrl='" + bookUrl + '\'' +
                 '}';
