@@ -3,7 +3,7 @@ package com.fablwesn.www.discovergooglebooks;
 /**
  * Model class for a book (search result)
  */
-public class BookModel {
+class BookModel {
 
     /*
     * Book's title
@@ -22,8 +22,12 @@ public class BookModel {
     * */
     private String bookCover;
 
+    /* Empty constructor */
+    BookModel() {
+    }
+
     /* Class constructor */
-    public BookModel(String bookTitle, String bookAuthor, String bookPublisher, String bookCover) {
+    BookModel(String bookTitle, String bookAuthor, String bookPublisher, String bookCover) {
         this.bookTitle = bookTitle;
         this.bookAuthor = bookAuthor;
         this.bookPublisher = bookPublisher;
@@ -34,18 +38,19 @@ public class BookModel {
     * Getter methods
     * */
 
+    // get title string
     public String getBookTitle() {
         return bookTitle;
     }
-
+    // get author string
     public String getBookAuthor() {
         return bookAuthor;
     }
-
+    // get publisher string
     public String getBookPublisher() {
         return bookPublisher;
     }
-
+    // get book cover url as string
     public String getBookCover() {
         return bookCover;
     }
