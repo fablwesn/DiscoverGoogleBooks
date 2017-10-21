@@ -36,6 +36,7 @@ class BooksLoader extends AsyncTaskLoader<List<BookModel>> {
     ***************************************/
     @Override
     public List<BookModel> loadInBackground() {
+        // return early if empty
         if (url == null) {
             return null;
         }
