@@ -25,7 +25,7 @@ import static com.fablwesn.www.discovergooglebooks.MiscUtils.isQueryValid;
 public class MainActivity extends AppCompatActivity {
 
     // min required characters typed to start a search
-    final static int MIN_CHARS_FOR_SEARCH = 3;
+    final static int MIN_CHARS_FOR_SEARCH = 2;
 
     // stores the user input from the default search view
     private String userMainQuery = "";
@@ -283,7 +283,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * collapses/expands the advanced search tab, depending on it's current state
      *
-     * @param advancedTab
+     * @param advancedTab   view getting the listener
      */
     public void clickAdvancedSearchToggle(View advancedTab) {
         final LinearLayout advancedView = findViewById(R.id.main_content_linlay_adv_expanded);

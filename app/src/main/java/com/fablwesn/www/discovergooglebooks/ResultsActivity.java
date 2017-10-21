@@ -94,15 +94,15 @@ public class ResultsActivity extends AppCompatActivity {
         // set the title in advanced search mode
         else {
             //set the title with user inputs
-            String[] queries = extras.getStringArray(getResources().getString(R.string.extra_key_string_array_adv_input));
+            String[] queryInputs = extras.getStringArray(getResources().getString(R.string.extra_key_string_array_adv_input));
 
-            if (queries != null) {
+            if (queryInputs != null) {
                 //replace any empty item with a EMPTY_LABEL_CHAR char
-                for (int i = 0; i < queries.length; i++) {
-                    if(queries[i].isEmpty())
-                        queries[i] = EMPTY_LABEL_CHAR;
+                for (int i = 0; i < queryInputs.length; i++) {
+                    if(queryInputs[i].isEmpty())
+                        queryInputs[i] = EMPTY_LABEL_CHAR;
                 }
-                title = getResources().getString(R.string.results_label_adv, queries[0], queries[1], queries[2]);
+                title = getResources().getString(R.string.results_label_adv, queryInputs[0], queryInputs[1], queryInputs[2]);
             }
             // use the default app name in case something goes wrong
             else

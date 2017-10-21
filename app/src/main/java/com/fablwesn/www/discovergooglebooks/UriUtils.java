@@ -102,19 +102,19 @@ class UriUtils {
         StringBuilder builder = new StringBuilder(REQUEST_URL_RAW);
 
         // add search values for a title search if one is requested
-        if(!titleQuery.isEmpty()){
+        if(!titleQuery.isEmpty() && !titleQuery.contentEquals(ResultsActivity.EMPTY_LABEL_CHAR)){
             builder.append(REQUEST_URL_QUERY_SEARCH_TITLE)
                     .append(titleQuery.replace(" ", "+"));
         }
 
         // add search values for an author search if one is requested
-        if(!authorQuery.isEmpty()){
+        if(!authorQuery.isEmpty() && !authorQuery.contentEquals(ResultsActivity.EMPTY_LABEL_CHAR)){
             builder.append(REQUEST_URL_QUERY_SEARCH_AUTHOR)
                     .append(authorQuery.replace(" ", "+"));
         }
 
         // add search values for a publisher search if one is requested
-        if(!publisherQuery.isEmpty()){
+        if(!publisherQuery.isEmpty() && !publisherQuery.contentEquals(ResultsActivity.EMPTY_LABEL_CHAR)){
             builder.append(REQUEST_URL_QUERY_SEARCH_PUBLISHER)
                     .append(publisherQuery.replace(" ", "+"));
         }
